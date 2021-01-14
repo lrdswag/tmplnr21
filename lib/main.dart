@@ -6,6 +6,7 @@ import 'package:flutter_app/components/contact.dart';
 import 'package:flutter_app/components/error_page.dart';
 import 'package:flutter_app/components/loading.dart';
 import 'package:fancy_drawer/fancy_drawer.dart';
+import 'package:flutter_app/components/about.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +16,7 @@ void main() {
       '/': (context) => MyApp(),
       '/contact': (context) => ContactPage(),
       '/login': (context) => Login(),
+      '/about': (context) => AboutPage(),
     },
   ));
 }
@@ -33,12 +35,10 @@ class App extends StatelessWidget {
         if (snapshot.hasError) {
           return SomethingWentWrong();
         }
-
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           return MyApp();
         }
-
         // Otherwise, show something whilst waiting for initialization to complete
         return Loading();
       },
@@ -76,28 +76,37 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Material(
       child: FancyDrawerWrapper(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         controller: _controller,
         drawerItems: <Widget>[
-          ListTile(
-            onTap: () {
-              Navigator.pushNamed(context, '/');
-            },
-            title: Text(
-              "Go to home",
-              style: GoogleFonts.getFont('Raleway', fontSize: 15),
-            ),
-            leading: Icon(Icons.home_outlined, size: 35),
-          ),
           ListTile(
             onTap: () {
               Navigator.pushNamed(context, '/login');
             },
             title: Text(
-              'Login',
-              style: GoogleFonts.getFont('Raleway', fontSize: 15),
+              'Login Now',
+              style: GoogleFonts.getFont('Raleway',
+                  fontSize: 15, color: Colors.white),
             ),
-            leading: Icon(Icons.login_outlined, size: 35),
+            leading: Icon(
+              Icons.login_outlined,
+              size: 35,
+              color: Colors.white,
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.pushNamed(context, '/about');
+            },
+            title: Text(
+              "About Us",
+              style: GoogleFonts.getFont('Raleway',
+                  fontSize: 15, color: Colors.white),
+            ),
+            leading: Icon(
+              Icons.info_outline_rounded,
+              color: Colors.white,
+            ),
           ),
           ListTile(
             onTap: () {
@@ -105,9 +114,17 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
             },
             title: Text(
               "Contact Us",
-              style: GoogleFonts.getFont('Raleway', fontSize: 15),
+              style: GoogleFonts.getFont(
+                'Raleway',
+                fontSize: 15,
+                color: Colors.white,
+              ),
             ),
-            leading: Icon(Icons.phone, size: 35),
+            leading: Icon(
+              Icons.phone,
+              size: 35,
+              color: Colors.white,
+            ),
           ),
         ],
         child: Scaffold(
@@ -115,13 +132,15 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
             elevation: 4.0,
             title: Text(
               "TMPLNR-20",
-              style: TextStyle(color: Colors.black),
+              style: GoogleFonts.getFont(
+                'Raleway',
+              ),
             ),
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.blueAccent,
             leading: IconButton(
               icon: Icon(
                 Icons.menu,
-                color: Colors.black,
+                color: Colors.white,
               ),
               onPressed: () {
                 _controller.toggle();
